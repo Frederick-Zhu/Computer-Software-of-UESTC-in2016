@@ -18,7 +18,7 @@ Sorry there isn't an English version, but you should still comply with the agree
 
 **以下人不受本协议限制**：
 >ZHANG HUANING in School of Automation in UESTC   
->LUO CHANGYA in School of Automation in UESTC
+>LUO CHANGYA in School of Automation in UESTC   
 >FU YIYUAN in School of Automation in UESTC   
 >SUN MINGCHUN in School of Automation in UESTC   
 >SUN ZHIHAO in School of Automation in UESTC    
