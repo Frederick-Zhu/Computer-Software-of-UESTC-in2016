@@ -1,14 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <stdbool.h>    //if use VC6.0, commt this line
 #include <time.h>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 //-std=gnu99
 
+//#define bool int    //if use VC6.0, uncommt thses three line
+//#define true 1
+//#define false 0
+
 #define MAXNUM 1000    //if MAXNUM large than 0x7FFF plz change type of SeqList.length
-#define elemtype int
+#define CREATLEN 10
+#define elemtype student
+
+typedef struct Student {
+	int number;
+	int math;
+}student;
 
 typedef struct SeqList {
 	elemtype data[MAXNUM];
@@ -27,20 +37,16 @@ void creatlist(seqlist *l);
 
 void seqlistsort(seqlist *l);
 void addbysort(seqlist *l, elemtype data); 
+student newstudent(int number, int math);
 
 int main(int argc, char *argv[]) {
 	srand((unsigned)time(NULL));
 	
 	seqlist A;
-	
 	creatlist(&A);
-	
 	printlist(A);
-	
-//	seqlistsort(&A);
-	
-	elemtype r = rand()%(101);
-	printf("insert:%d\n\n", r);
+	elemtype r = newstudent(rand()%(900000)+100000, rand()%(101));
+	printf("insert:%d\t%d\n\n", r.number, r.math);
 	addbysort(&A, r);
 	
 	printlist(A);
@@ -100,13 +106,14 @@ bool get(seqlist l, int i, elemtype *x) {
 		return false;
 	}
 	else {
-		return l.data[i];
+		*x = l.data[i];
+		return true;
 	}
 }
 
 int find(seqlist l, elemtype data) {
 	for(int i=0; i<l.length; i++) {
-		if(l.data[i]==data) {
+		if(l.data[i].number==data.number && l.data[i].math==data.math) {
 			return i;
 		}
 	}
@@ -116,15 +123,15 @@ int find(seqlist l, elemtype data) {
 void printlist(seqlist l) {
 	printf("length:%d\n\n", l.length);
 	for(int i=0; i<l.length; i++) {
-		printf("%d\t", l.data[i]);
+		printf("%d\t%d\n", l.data[i].number, l.data[i].math);
 	}
 	printf("\n\n");
 }
 
 void creatlist(seqlist *l) {
 	initialize(l);
-	for(int i=0; i<50; i++) {
-		add(l, rand()%(101));
+	for(int i=0; i<CREATLEN; i++) {
+		add(l, newstudent(rand()%(900000)+100000, rand()%(101)));
 	}
 	seqlistsort(l);
 }
@@ -133,7 +140,7 @@ void seqlistsort(seqlist *l) {
 	elemtype tmp;
 	for(int i=l->length-1; i>0; i--) {
 		for(int j=0; j<i; j++) {
-			if(l->data[j]>l->data[j+1]) {
+			if(l->data[j].number>l->data[j+1].number) {
 				tmp = l->data[j];
 				l->data[j] = l->data[j+1];
 				l->data[j+1] = tmp;
@@ -149,7 +156,7 @@ void addbysort(seqlist *l, elemtype data) {
 	else {
 		bool flag = true;
 		for(int i=0; i<l->length; i++) {
-			if(data<l->data[i]) {
+			if(data.number<l->data[i].number) {
 				insert(l, i, data);
 				flag = false;
 				break;
@@ -160,5 +167,12 @@ void addbysort(seqlist *l, elemtype data) {
 		}
 		
 	}
+}
+
+student newstudent(int number, int math) {
+	student s;
+	s.number = number;
+	s.math = math;
+	return s;
 }
 
