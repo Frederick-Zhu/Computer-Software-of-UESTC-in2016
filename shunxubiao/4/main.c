@@ -1,24 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>    //if use VC6.0, commt this line
+#include <stdbool.h>
 #include <time.h>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 //-std=gnu99
 
-//#define bool int    //if use VC6.0, uncommt thses three line
-//#define true 1
-//#define false 0
-
 #define MAXNUM 1000    //if MAXNUM large than 0x7FFF plz change type of SeqList.length
-#define CREATLEN 500
-#define elemtype student
-
-typedef struct Student {
-	int number;
-	int math;
-}student;
+#define elemtype int
 
 typedef struct SeqList {
 	elemtype data[MAXNUM];
@@ -36,19 +26,22 @@ void printlist(seqlist l);
 void creatlist(seqlist *l);
 
 void seqlistsort(seqlist *l);
-void delbynumber(seqlist *l, int number);
-int findbynumber(seqlist l, int number);
-student newstudent(int number, int math);
+void delinseqlist(seqlist *l, elemtype data);
 
 int main(int argc, char *argv[]) {
 	srand((unsigned)time(NULL));
 	
 	seqlist A;
+	
 	creatlist(&A);
+	
 	printlist(A);
-	int r = rand()%(900)+100;
+	
+//	seqlistsort(&A);
+	
+	elemtype r = rand()%(101);
 	printf("delete:%d\n\n", r);
-	delbynumber(&A, r);
+	delinseqlist(&A, r);
 	
 	printlist(A);
 	return 0;
@@ -107,31 +100,31 @@ bool get(seqlist l, int i, elemtype *x) {
 		return false;
 	}
 	else {
-		*x = l.data[i];
-		return true;
+		return l.data[i];
 	}
 }
 
 int find(seqlist l, elemtype data) {
 	for(int i=0; i<l.length; i++) {
-		if(l.data[i].number==data.number && l.data[i].math==data.math) {
+		if(l.data[i]==data) {
 			return i;
 		}
 	}
 	return -1;
 }
+
 void printlist(seqlist l) {
 	printf("length:%d\n\n", l.length);
 	for(int i=0; i<l.length; i++) {
-		printf("%d\t%d\n", l.data[i].number, l.data[i].math);
+		printf("%d\t", l.data[i]);
 	}
 	printf("\n\n");
 }
 
 void creatlist(seqlist *l) {
 	initialize(l);
-	for(int i=0; i<CREATLEN; i++) {
-		add(l, newstudent(rand()%(900)+100, rand()%(101)));
+	for(int i=0; i<50; i++) {
+		add(l, rand()%(101));
 	}
 	seqlistsort(l);
 }
@@ -140,7 +133,7 @@ void seqlistsort(seqlist *l) {
 	elemtype tmp;
 	for(int i=l->length-1; i>0; i--) {
 		for(int j=0; j<i; j++) {
-			if(l->data[j].number>l->data[j+1].number) {
+			if(l->data[j]>l->data[j+1]) {
 				tmp = l->data[j];
 				l->data[j] = l->data[j+1];
 				l->data[j+1] = tmp;
@@ -149,25 +142,9 @@ void seqlistsort(seqlist *l) {
 	}
 }
 
-void delbynumber(seqlist *l, int number) {
-	for(int i=findbynumber(*l, number); i!=-1; i=findbynumber(*l, number)) {
+void delinseqlist(seqlist *l, elemtype data) {
+	for(int i=find(*l, data); i!=-1; i=find(*l, data)) {
 		del(l, i);
 	}
-}
-
-int findbynumber(seqlist l, int number) {
-	for(int i=0; i<l.length; i++) {
-		if(l.data[i].number==number) {
-			return i;
-		}
-	}
-	return -1;
-}
-
-student newstudent(int number, int math) {
-	student s;
-	s.number = number;
-	s.math = math;
-	return s;
 }
 

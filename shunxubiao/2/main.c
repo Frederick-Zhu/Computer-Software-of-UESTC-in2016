@@ -1,15 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>    //if use VC6.0, commt this line
+#include <stdbool.h>
 #include <time.h>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 //-std=gnu99
-
-//#define bool int    //if use VC6.0, uncommt thses three line
-//#define true 1
-//#define false 0
 
 #define MAXNUM 1000    //if MAXNUM large than 0x7FFF plz change type of SeqList.length
 #define elemtype int
@@ -36,14 +32,29 @@ int main(int argc, char *argv[]) {
 	
 	seqlist A;
 	seqlist B;
-
+//	printf("%x\n", &A);
+//	printf("%x\n", &B);
 	creatlist(&A);
 	creatlist(&B);
-
+//	initialize(&A);
+//	initialize(&B);
+//	
+//	add(&A, 1);
+//	add(&A, 2);
+//	add(&A, 3);
+//	add(&A, 4);
+//	add(&A, 5);
+//	add(&B, 4);
+//	add(&B, 5);
+//	add(&B, 6);
+//	add(&B, 7);
+//	add(&B, 8);
 	
 	printlist(A);
 	printlist(B);
-
+//	printf("%d\n", find(A, 5));
+//	pop(&A);
+//	del(&A, 2);
 	intersection(&A, B);
 	printlist(A);
 	return 0;
