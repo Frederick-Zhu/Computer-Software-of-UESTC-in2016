@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1458660606 source:c:\users\zhu_z\documents\c\mine\shangji\lianbiao\0\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<time.h>
+

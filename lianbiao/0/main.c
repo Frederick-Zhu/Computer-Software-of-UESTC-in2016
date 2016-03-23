@@ -27,6 +27,7 @@ bool del(LinkList l, int pos);
 bool pop(LinkList l);
 int find(LinkList l, ElemType data);
 bool get(LinkList l, int pos, ElemType *data);
+int getlength(LinkList l);
 
 void printlist(LinkList l);
 void creatlist(LinkList *l);
@@ -34,7 +35,7 @@ void creatlist(LinkList *l);
 
 int main(int argc, char *argv[]) {
 	srand((unsigned)time(NULL));
-	
+
 	return 0;
 }
 
@@ -182,3 +183,22 @@ void creatlist(LinkList *l) {
 	}
 }
 
+int getlength(LinkList l) {
+    LNode *p = l;
+    if(p) {    //has head node
+        if(p->next) {    //has elem
+            int i = -1;
+            while(p) {
+                p = p->next;
+                i++;
+            }
+            return i;
+        }
+        else {    //does not have elem
+            return 0;
+        }
+    }
+    else {    //does not have head node
+        return -1;
+    }
+}
